@@ -1,0 +1,196 @@
+---
+title: "Introduction to R part 1"
+output: html_notebook
+---
+
+ 
+# **Working directory**
+
+
+Working directory is a file path that sets the location of any files you save from R, data sets you import into R, etc. This is your default file path.
+
+## Set working directory
+
+The function to set your working directory is: setwd(“Path”).To make sure you have the right working directory, type the function, getwd( ). Note that the function has no arguments. Look at the result and make sure it is the directory you want.
+
+### **Use menu-driven method**
+
+To use graphical user interface method (GUI), use the session panel in RStudio and follow these steps: session > set working directory > choose directory.
+
+### **Use command line**
+
+```{r setting working directory using command line}
+
+# copy paste folder for this training
+
+setwd("C:/Users/Gdinede/OneDrive - CGIAR/Desktop/R_data_clinic_7_Jul_22")
+
+```
+
+## check that working director is set
+
+You can check your current working directory by running the command *getwd()*.
+
+
+```{r}
+
+getwd()
+
+```
+
+
+# ===============================================================
+
+
+# **R packages**
+
+R packages are **a collection of R functions, complied code and sample data**. They are stored under a directory called **library** in the R environment. They increase the power of R by improving existing base R functionalities, or by adding new ones. For example, **tidyverse** is the most commonly used package for data management and analysis. 
+
+
+## Install packages
+
+By default, R installs a set of packages during installation. More packages are added later, when they are needed for some specific purpose. You can install packages from repositories-a place where packages are located- including **CRAN,Bioconductor and Github**. **Comprehensive R Archive Network(CRAN)** is the most common repository from where the packages can be installed.Use the command **install.packages("package")**  to install packages. While installing packages using this function, the package should be put in double quotations. Multiple packages can also be installed by separating them by comma. A command **pacman._install()** can also be used to install packages but it does not use quoattion mark like *install.packages()* function.  In the installing process, messages including the installation itself, the source code, the help, some tests, and finally, a message that everything went well and the package was successfully installed will be displayed.
+
+## Library locations for R packages
+
+Installed packages are stored in a specific location on your computer and you can check where the R packages are stored using the function **.libpath()** .
+
+```{r}
+
+.libPaths()
+
+```
+
+### Use the command **install.packages()**
+
+```{r installing packages using install.packages() fucntion}
+
+## install.packages("package")
+
+install.packages("tidyverse")
+
+install.packages("vioplot")
+
+## install.packages(c("package1","package2"))# install multiple package
+
+install.packages("tidyverse", "vioplot")
+
+
+
+```
+
+### Use the command **pacman._install()**
+
+```{r}
+
+pacman::p_install(vioplot)
+
+pacman::p_delete(vioplot)
+pacman::p_isinstalled(vioplot)
+```
+
+## Other repositories of R package than CRAN
+
+R packages can be installed from other sources such as Github, bioconductor etc.
+
+```{r}
+
+pacman::
+  
+# install from Github
+  
+install.packages('spDataLarge',repos='https://nowosad.github.io/drat/',type='source')
+
+githubinstall::githubinstall("AnomalyDetection")
+
+pacman::p_isinstalled(AnomalyDetection)
+
+```
+
+
+### Using graphical User Interfaces 
+
+
+If you prefer a graphical user interface (that is, pointing and clicking) to install packages, both RStudio and the RGui include them. In RStudio you will find it at *Tools -> Install Package*, and there you will get a pop-up window to type the package you want to install. While in the RGui, you will find the utilities under the *Packages* menu.
+
+
+## Get all packages currently installed in the R environment
+
+
+To  get packages currently installed on your computer, use the function *search()*. This provides lists of packages as indicated in the CRAN task view by their classes. You can also use the functions *library()* and *installed.packages*, and these packages generate the installed packages with their descriptions.
+
+### search()
+
+```{r}
+
+search()
+
+```
+
+### library()
+
+```{r}
+
+library() # looks more clear
+
+
+```
+
+### installed.packages()
+
+```{r}
+
+installed.packages()
+
+```
+
+
+
+## Verify that the package is installed
+
+You can also check whether a given  package is installed on your computer or not using the functions *pacman::p_isinstalled()* and*any(grepl(" package",installed.packages()))*.
+
+```{r}
+
+pacman::p_isinstalled(vioplot)
+
+any(grepl("tidyverse",installed.packages()))
+
+```
+
+
+## Update packages
+
+You can check what packages need an update with a call to the function *old.packages()*.
+
+```{r}
+old.packages() ## check package that needs update
+```
+You can update all packages by using *update.packages()*.
+
+```{r upadting packages}
+
+update.packages("tidyverse") # update all packages
+
+update.packages("package") ## update a specific package
+
+update.packages("tidyverse")
+
+
+```
+
+## Uninstall packages
+
+Uninstalling a package is straightforward with the function *remove.packages()*. This completely removes the package from your library and you need to install it if you need to use it again. Check this package using library() or pacman::_isinstalled() to see if it is available in your library after executing it.
+
+```{r uninstalling apckages}
+
+pacman::p_isinstalled("vioplot")
+pacman::p_install("vioplot")
+# remove packages permanently from your library
+pacman::p_delete("vioplot")
+remove.packages("vioplot") 
+
+```
+
+# =========================================================
